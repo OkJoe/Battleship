@@ -1,5 +1,23 @@
 import pygame, sys, Ship, math, Motion, Arm, ShipSta
 from pygame.locals import *
+
+test = []
+
+for i in range(0, 2):
+    ShipSta.addship(test)
+    test[-1].reInit()
+
+test[0].inpC.left = K_a
+test[0].inpC.right = K_d
+test[0].inpC.up = K_w
+test[0].inpC.down = K_s
+test[0].inpC.cannonFire = K_q
+test[0].inpC.torpedoFire = K_e
+test[1].player = 1
+test[0].x = 2500
+test[1].theta = math.pi
+test[1].x = 7500
+
 pygame.init()
 DISPLAYSURF = pygame.display.set_mode((1500, 1500))
 pygame.display.set_caption('TEST')
@@ -11,21 +29,6 @@ red = (255, 0, 0)
 black = (0, 0, 0)
 green = (0 , 255, 0)
 torlist = []
-
-test = []
-test.append(Ship.ship())
-test.append(ShipSta.Shimakaze())
-test[1].reInit()
-test[1].inpC.left = K_a
-test[1].inpC.right = K_d
-test[1].inpC.up = K_w
-test[1].inpC.down = K_s
-test[1].inpC.cannonFire = K_q
-test[1].inpC.torpedoFire = K_e
-test[1].player = 1
-test[1].x = 2500
-test[0].theta = math.pi
-test[0].x = 7500
 
 while True:
 
@@ -46,8 +49,8 @@ while True:
     for ship in test:
         Motion.motionDisplay(DISPLAYSURF, ship)
 
-    test[0].showSituation(DISPLAYSURF, 1300, 250)
-    test[1].showSituation(DISPLAYSURF, 0, 250)
+    test[0].showSituation(DISPLAYSURF, 0, 250)
+    test[1].showSituation(DISPLAYSURF, 1300, 250)
 
     for ship in test:
         for shipE in test:
@@ -65,8 +68,8 @@ while True:
         for ship in test:
             torpedoOb.fire(ship)
 
-    test[0].revive(DISPLAYSURF, 1300, 750)
-    test[1].revive(DISPLAYSURF, 0, 750)
+    test[0].revive(DISPLAYSURF, 0, 750)
+    test[1].revive(DISPLAYSURF, 1300, 750)
     
     pygame.display.update()
     fpsClock.tick(FPS)

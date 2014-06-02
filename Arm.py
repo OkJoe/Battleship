@@ -93,6 +93,16 @@ class cannon127(cannon):
         self.harm = 50
         self.fixedtime = 80
 
+class cannon152(cannon):
+    def reInit(self):
+        self.harm = 60
+        self.fixedtime = 100
+
+class cannon356(cannon):
+    def reInit(self):
+        self.harm = 150
+        self.fixedtime = 200
+
 class torpedoOb(weapon):
     x = int()
     y = int()
@@ -156,7 +166,12 @@ class torpedoOb(weapon):
 class torpedo610Ob(torpedoOb):
     def reInit(self):
         self.harm = 61
-
+        
+class torpedo553Ob(torpedoOb):
+    def reInit(self):
+        self.harm = 55
+        self.v = 400
+        
 class torpedo(weapon):
     def init(self, number):
         self.typ = 'torpedo'
@@ -165,8 +180,22 @@ class torpedo(weapon):
 
 class torpedo610(torpedo):
     def fire(self, torlist, ship):
-        if self.addtime == 0 and self.harm == 1:
+        if self.addtime == 0 and self.harm >= 1:
             newtor = torpedo610Ob()
+            newtor.reInit()
+            newtor.x = ship.x + int(math.cos(ship.theta) * ship.sta.length)
+            newtor.y = ship.y + int(math.sin(ship.theta) * ship.sta.length)
+            newtor.vangel = ship.theta - 0.05 + 0.1 * random.random()
+            torlist.append(newtor)
+            torlist[-1].addtime = 75
+            self.addtime = self.fixedtime
+    def reInit(self):
+        whatever = 0
+
+class torpedo553(torpedo):
+    def fire(self, torlist, ship):
+        if self.addtime == 0 and self.harm >= 1:
+            newtor = torpedo553Ob()
             newtor.reInit()
             newtor.x = ship.x + int(math.cos(ship.theta) * ship.sta.length)
             newtor.y = ship.y + int(math.sin(ship.theta) * ship.sta.length)
