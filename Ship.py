@@ -7,6 +7,7 @@ black = (0, 0, 0)
 white = (255, 255, 255)
 red = (255, 0, 0)
 green = (0, 255, 0)
+yellow = (255, 255, 0)
 
 def vadd(mag1, mag2, ang1, ang2, magOrAng):
     magx = mag1 * math.cos(ang1) + mag2 * math.cos(ang2)
@@ -74,10 +75,10 @@ class block:
         if self.health > harm / (self.armor + 10):
             harm = int(harm / (self.armor + 10))
             self.health -= harm
-            if ship.sta.propulsion >= harm + 10:
+            if ship.sta.propulsion >= harm + 50:
                 ship.sta.propulsion -= harm
             else:
-                ship.sta.propulsion = 10
+                ship.sta.propulsion = 50
             for weapon in self.weapon:
                 if random.randint(0, 4) == 0:
                     weapon.harm -= int(weapon.harm * harm/ (self.health + harm))
@@ -208,7 +209,7 @@ class ship:
     def hitten(self, weapon, x, y):
         for block in self.sta.block:
             centerx = ((block.number / 4) * 2 - 1) * self.sta.length / 10
-            centery = ((block.number % 4) * 2 - 3) * self.sta.length / 8
+            centery = (3 - (block.number % 4) * 2) * self.sta.length / 8
             d = math.sqrt((centerx - x) * (centerx - x) + (centery - y) * (centery - y))
             if d < weapon.harmr:
                 block.hitten(weapon.harm, self)
@@ -229,25 +230,34 @@ class ship:
 
     def revive(self, DISPLAYSURF, x, y):
         for i in range(0, 8):
+            conditionmaincan = False
+            existmaincan = 0
             if self.sta.block[i].armor < self.sta.armor[i]:
                 if self.sta.block[i].addtime < 0:
                     self.sta.block[i].addtime -= 1
                 else:
                     self.sta.block[i].addtime = 50
                     self.sta.block[i].armor += 1
+
+            conditioncan = False
+            existcan = False
+            conditiontor = False
+            existtor = False
                     
             for weapon in self.sta.block[i].weapon:
-                conditiontor = False
-                existtor = False
                 if weapon.typ == 'cannon':
+                    existcan = True
+                    existmaincan += 1
                     if weapon.addtime > 0:
                         weapon.addtime -= 1
                         pygame.draw.rect(DISPLAYSURF, (255 - weapon.addtime, 255 - weapon.addtime, 255 - weapon.addtime), (x + (i / 4) * 50, y + (i % 4) * 50, 50, 50))
                     else:
                         pygame.draw.rect(DISPLAYSURF, green, (x + (i / 4) * 50, y + (i % 4) * 50, 50, 50))
-                    if self.sta.block[i].state == False:
-                        pygame.draw.rect(DISPLAYSURF, red, (x + (i / 4) * 50, y + (i % 4) * 50, 50, 50))
-
+                    if weapon.harm != 0:
+                        conditioncan = True
+                        if existmaincan == 1:
+                            if weapon.addtime == 0:
+                                conditionmaincan = True
                 if weapon.typ == 'torpedo':
                     existtor = True
                     if weapon.addtime > 0:
@@ -258,5 +268,11 @@ class ship:
                     if weapon.harm != 0:
                         conditiontor = True
 
-                if (self.sta.block[i].state == False or conditiontor == False) and existtor:
-                    pygame.draw.rect(DISPLAYSURF, red, (x + (i / 4) * 50, y + (i % 4) * 50 + 300, 50, 50))
+            if conditionmaincan:
+                pygame.draw.rect(DISPLAYSURF, yellow, (x + (i / 4) * 50, y + (i % 4) * 50, 50, 50))
+
+            if (self.sta.block[i].state == False or conditioncan == False) and existcan:
+                pygame.draw.rect(DISPLAYSURF, red, (x + (i / 4) * 50, y + (i % 4) * 50, 50, 50))
+
+            if (self.sta.block[i].state == False or conditiontor == False) and existtor:
+                pygame.draw.rect(DISPLAYSURF, red, (x + (i / 4) * 50, y + (i % 4) * 50 + 300, 50, 50))

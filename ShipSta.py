@@ -30,6 +30,10 @@ def addship(shiplist):
             shiplist.append(Kongo())
             shiplist[-1].sta.level = level
             break
+        elif name == 'Bismarck':
+            shiplist.append(Bismarck())
+            shiplist[-1].sta.level = level
+            break
         else:
             print "no such ship found, please enter again"
 
@@ -73,3 +77,22 @@ class Kongo(Ship.ship):
             for weapon in block.weapon:
                 weapon.harm += self.sta.level
 
+class Bismarck(Ship.ship):
+    def reInit(self):
+        self.sta.name = 'Bismark'
+        self.sta.length = 250
+        self.sta.propulsion = 175
+        self.sta.evasion = 0.04
+        self.sta.health = [96, 96, 96, 96, 96, 96, 96, 96]
+        self.sta.armor = [100, 90, 90, 100, 100, 90, 90, 100]
+        self.sta.weapon = [[Arm.cannon380(), Arm.cannon150(), Arm.cannon150(), Arm.cannon105(), Arm.cannon105()],[Arm.cannon380(), Arm.cannon150(), Arm.cannon105(), Arm.cannon105()],[Arm.cannon380(), Arm.cannon150(), Arm.cannon105(), Arm.cannon105()],[Arm.cannon380(), Arm.cannon150(), Arm.cannon150(), Arm.cannon105(), Arm.cannon105()],[Arm.cannon380(), Arm.cannon150(), Arm.cannon150(), Arm.cannon105(), Arm.cannon105()],[Arm.cannon380(), Arm.cannon150(), Arm.cannon105(), Arm.cannon105()],[Arm.cannon380(), Arm.cannon150(), Arm.cannon105(), Arm.cannon105()],[Arm.cannon380(), Arm.cannon150(), Arm.cannon150(), Arm.cannon105(), Arm.cannon105()]]
+        self.sta.block = [Ship.block(), Ship.block(), Ship.block(), Ship.block(), Ship.block(), Ship.block(), Ship.block(), Ship.block()]
+        self.sta.color = (255, 128, 128)
+        for i in range(0, 8):
+            self.sta.block[i].number = i
+            self.sta.block[i].init(self.sta)
+        for block in self.sta.block:
+            block.armor += self.sta.level
+            block.health += self.sta.level
+            for weapon in block.weapon:
+                weapon.harm += self.sta.level

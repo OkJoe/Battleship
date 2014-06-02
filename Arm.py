@@ -88,10 +88,20 @@ class cannon(weapon):
                     shipE.hitten(self, int(pos * math.cos(angel)), int(pos * math.sin(angel)))
                 self.addtime = self.fixedtime
 
+class cannon105(cannon):
+    def reInit(self):
+        self.harm = 40
+        self.fixedtime = 60
+
 class cannon127(cannon):
     def reInit(self):
         self.harm = 50
         self.fixedtime = 80
+
+class cannon150(cannon):
+    def reInit(self):
+        self.harm = 60
+        self.fixedtime = 90
 
 class cannon152(cannon):
     def reInit(self):
@@ -102,6 +112,11 @@ class cannon356(cannon):
     def reInit(self):
         self.harm = 150
         self.fixedtime = 200
+
+class cannon380(cannon):
+    def reInit(self):
+        self.harm = 160
+        self.fixedtime = 220
 
 class torpedoOb(weapon):
     x = int()
@@ -121,7 +136,7 @@ class torpedoOb(weapon):
         self.state = True
         self.addtime = 75
         self.harm = 0
-        self.harmr = 200
+        self.harmr = 300
         self.addtime = 0
         self.fixedtime = 0
 
