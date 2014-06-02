@@ -14,8 +14,10 @@ def motionRecord(ship, event):
             ship.inpR.up = True
         elif event.key == ship.inpC.down:
             ship.inpR.down = True
-        elif event.key == ship.inpC.fire:
-            ship.inpR.fire = True
+        elif event.key == ship.inpC.cannonFire:
+            ship.inpR.cannonFire = True
+        elif event.key == ship.inpC.torpedoFire:
+            ship.inpR.torpedoFire = True
         
     elif event.type == KEYUP: 
         if event.key == ship.inpC.left:
@@ -26,8 +28,10 @@ def motionRecord(ship, event):
             ship.inpR.up = False
         elif event.key == ship.inpC.down:
             ship.inpR.down = False
-        elif event.key == ship.inpC.fire:
-            ship.inpR.fire = False
+        elif event.key == ship.inpC.cannonFire:
+            ship.inpR.cannonFire = False
+        elif event.key == ship.inpC.torpedoFire:
+            ship.inpR.torpedoFire = False
             
 def motionDisplay(DISPLAYSURF, ship):
     
@@ -44,6 +48,10 @@ def motionDisplay(DISPLAYSURF, ship):
             
     pygame.draw.line(DISPLAYSURF, ship.sta.color, (250 + int((ship.x - ship.sta.length * math.cos(ship.theta) / 2) / 10), 250 + int((ship.y - ship.sta.length * math.sin(ship.theta) / 2) / 10)), (250 + int((ship.x + ship.sta.length * math.cos(ship.theta) / 2) / 10), 250 + int((ship.y + ship.sta.length * math.sin(ship.theta) / 2) / 10)), 4)
 
-def fire(shipS, shipE):
-    if shipS.inpR.fire == True:
+def cannonFire(shipS, shipE):
+    if shipS.inpR.cannonFire == True:
         shipS.cannonFire(shipE)
+
+def torpedoFire(shipS, torlist):
+    if shipS.inpR.torpedoFire == True:
+        shipS.torpedoFire(torlist)
