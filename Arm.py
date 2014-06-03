@@ -91,67 +91,67 @@ class cannon(weapon):
                     
 class cannon100(cannon):
     def reInit(self):
-        self.harm = 70
+        self.harm = 140
         self.fixedtime = 50
 
 class cannon105(cannon):
     def reInit(self):
-        self.harm = 80
+        self.harm = 160
         self.fixedtime = 60
 
 class cannon120(cannon):
     def reInit(self):
-        self.harm = 90
+        self.harm = 180
         self.fixedtime = 70
 
 class cannon127(cannon):
     def reInit(self):
-        self.harm = 100
+        self.harm = 200
         self.fixedtime = 80
 
 class cannon130(cannon):
     def reInit(self):
-        self.harm = 110
+        self.harm = 220
         self.fixedtime = 80
 
 class cannon150(cannon):
     def reInit(self):
-        self.harm = 120
+        self.harm = 240
         self.fixedtime = 90
 
 class cannon152(cannon):
     def reInit(self):
-        self.harm = 120
+        self.harm = 240
         self.fixedtime = 100
         
 class cannon155(cannon):
     def reInit(self):
-        self.harm = 130
+        self.harm = 260
         self.fixedtime = 100
 
 class cannon356(cannon):
     def reInit(self):
-        self.harm = 200
+        self.harm = 400
         self.fixedtime = 200
 
 class cannon380(cannon):
     def reInit(self):
-        self.harm = 220
+        self.harm = 440
         self.fixedtime = 220
         
 class cannon406(cannon):
     def reInit(self):
-        self.harm = 250
+        self.harm = 500
         self.fixedtime = 230
 
 class cannon410(cannon):
     def reInit(self):
-        self.harm = 260
+        self.harm = 520
         self.fixedtime = 250
 
 class cannon460(cannon):
     def reInit(self):
-        self.harm = 300
+        self.harm = 600
         self.fixedtime = 255
 
 class torpedoOb(weapon):
