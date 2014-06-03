@@ -7,12 +7,14 @@ for i in range(0, 2):
     ShipSta.addship(test)
     test[-1].reInit()
 
-test[0].inpC.left = K_a
-test[0].inpC.right = K_d
-test[0].inpC.up = K_w
-test[0].inpC.down = K_s
-test[0].inpC.cannonFire = K_q
-test[0].inpC.torpedoFire = K_1
+test[0].inpC.left = K_s
+test[0].inpC.right = K_f
+test[0].inpC.up = K_e
+test[0].inpC.down = K_d
+test[0].inpC.cannonFire = K_w
+test[0].inpC.torpedoFire = K_q
+test[0].inpC.sidekickleft = K_1
+test[0].inpC.sidekickright = K_2
 test[1].player = 1
 test[0].x = 2500
 test[1].theta = math.pi

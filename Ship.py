@@ -100,6 +100,8 @@ class inputRecord:
     down = bool()
     cannonFire = bool()
     torpedoFire = bool()
+    sidekickleft = bool()
+    sidekickright = bool()
     def __init__(self):
         self.left = False
         self.right = False
@@ -107,14 +109,18 @@ class inputRecord:
         self.down = False
         self.cannonFire = False
         self.torpedoFire = False
+        self.sidekickleft = False
+        self.sidekickright = False
 
 class inputControl:
     left = K_LEFT
     right = K_RIGHT
     up = K_UP
     down = K_DOWN
-    cannonFire = K_l
-    torpedoFire = K_m
+    cannonFire = K_PERIOD
+    torpedoFire = K_COMMA
+    sidekickleft = K_k
+    sidekickright = K_l
     def __init__(self):
         self.left = K_LEFT
         self.right = K_RIGHT
@@ -122,6 +128,8 @@ class inputControl:
         self.down = K_DOWN
         self.cannonFire = K_PERIOD
         self.torpedoFire = K_COMMA
+        self.sidekickleft = K_k
+        self.sidekickright = K_l
     
 class ship:
     player = int()
@@ -193,8 +201,18 @@ class ship:
         self.ax += int(self.sta.propulsion * math.cos(self.theta))
         self.ay += int(self.sta.propulsion * math.sin(self.theta))
     def down(self):
-        self.ax -= int(self.sta.propulsion * math.cos(self.theta) / 2)
-        self.ay -= int(self.sta.propulsion * math.sin(self.theta) / 2)
+        self.ax -= int(self.sta.propulsion * math.cos(self.theta) / 10)
+        self.ay -= int(self.sta.propulsion * math.sin(self.theta) / 10)
+    def sidekickleft(self):
+        v = vadd(self.v, self.sta.propulsion / 10, self.vangel, self.theta - (math.pi / 2), 'mag')
+        vangel = vadd(self.v, self.sta.propulsion / 10, self.vangel, self.theta - (math.pi / 2), 'ang')
+        self.v = v
+        self.vangel = vangel
+    def sidekickright(self):
+        v = vadd(self.v, self.sta.propulsion / 10, self.vangel, self.theta + (math.pi / 2), 'mag')
+        vangel = vadd(self.v, self.sta.propulsion / 10, self.vangel, self.theta + (math.pi / 2), 'ang')
+        self.v = v
+        self.vangel = vangel
         
     def showSituation(self, DISPLAYSURF, x, y):
         for i in range(0, 8):
