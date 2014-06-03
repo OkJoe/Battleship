@@ -85,6 +85,7 @@ class cannon(weapon):
                     angel = float()
                     angel = random.randint(0, 360) * 2 * math.pi / 360
                     pos = random.randint(0, int(d / 10))
+                    pos = max(pos, int(shipE.sta.length / 2))
                     shipE.hitten(self, int(pos * math.cos(angel)), int(pos * math.sin(angel)))
                     self.addtime = self.fixedtime
                     
