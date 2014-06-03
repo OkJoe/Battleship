@@ -49,7 +49,7 @@ class block:
     state = bool()
     number = int()
     armor = int()
-    health = int()
+    health = float()
     weapon = []
     addtime = int()
     def __init__(self):
@@ -68,24 +68,20 @@ class block:
             weapon.reInit()
 
     def hitten(self, harm, ship):
-        if self.armor > 5:
-            self.armor -= 5
-        else:
-            self.armor = 0
-        if self.health > harm / (self.armor + 10):
-            harm = int(harm / (self.armor + 10))
-            self.health -= harm
-            if ship.sta.propulsion >= harm + 50:
-                ship.sta.propulsion -= harm
+        harmfloat = float()
+        harmfloat = harm / self.armor
+        if self.state:
+            if random.randint(0, 50) == 0 and ship.sta.propulsion > 100:
+                ship.sta.propulsion -= 1
+            if self.health > harmfloat:
+                self.health -= harmfloat
+                for weapon in self.weapon:
+                    if random.randint(0, 4) == 0:
+                        weapon.harm -= int(weapon.harm * harmfloat / (self.health + harmfloat))
+                        if weapon.harm <= 1:
+                            weapon.harm = 0
             else:
-                ship.sta.propulsion = 50
-            for weapon in self.weapon:
-                if random.randint(0, 4) == 0:
-                    weapon.harm -= int(weapon.harm * harm/ (self.health + harm))
-                    if weapon.harm <= 1:
-                        weapon.harm = 0
-        else:
-            self.state = False
+                self.state = False
 
     def cannonFire(self, shipS, shipE):
         for weapon in self.weapon:
@@ -124,8 +120,8 @@ class inputControl:
         self.right = K_RIGHT
         self.up = K_UP
         self.down = K_DOWN
-        self.cannonFire = K_l
-        self.torpedoFire = K_m
+        self.cannonFire = K_PERIOD
+        self.torpedoFire = K_COMMA
     
 class ship:
     player = int()
@@ -202,7 +198,7 @@ class ship:
         
     def showSituation(self, DISPLAYSURF, x, y):
         for i in range(0, 8):
-            pygame.draw.rect(DISPLAYSURF, (self.sta.block[i].health, self.sta.block[i].health, self.sta.block[i].health), (x + (i / 4) * 50, y + (i % 4) * 50, 50, 50))
+            pygame.draw.rect(DISPLAYSURF, (min(255, self.sta.block[i].health), min(255, self.sta.block[i].health), min(255, self.sta.block[i].health)), (x + (i / 4) * 50, y + (i % 4) * 50, 50, 50))
             if self.sta.block[i].state == False:
                 pygame.draw.rect(DISPLAYSURF, red, (x + (i / 4) * 50, y + (i % 4) * 50, 50, 50))
 
@@ -250,7 +246,8 @@ class ship:
                     existmaincan += 1
                     if weapon.addtime > 0:
                         weapon.addtime -= 1
-                        pygame.draw.rect(DISPLAYSURF, (255 - weapon.addtime, 255 - weapon.addtime, 255 - weapon.addtime), (x + (i / 4) * 50, y + (i % 4) * 50, 50, 50))
+                        if existmaincan == 1:
+                            pygame.draw.rect(DISPLAYSURF, (255 - weapon.addtime, 255 - weapon.addtime, 255 - weapon.addtime), (x + (i / 4) * 50, y + (i % 4) * 50, 50, 50))
                     else:
                         pygame.draw.rect(DISPLAYSURF, green, (x + (i / 4) * 50, y + (i % 4) * 50, 50, 50))
                     if weapon.harm != 0:

@@ -46,7 +46,8 @@ def motionDisplay(DISPLAYSURF, ship):
              
     ship.control()
             
-    pygame.draw.line(DISPLAYSURF, ship.sta.color, (250 + int((ship.x - ship.sta.length * math.cos(ship.theta) / 2) / 10), 250 + int((ship.y - ship.sta.length * math.sin(ship.theta) / 2) / 10)), (250 + int((ship.x + ship.sta.length * math.cos(ship.theta) / 2) / 10), 250 + int((ship.y + ship.sta.length * math.sin(ship.theta) / 2) / 10)), 4)
+    pygame.draw.line(DISPLAYSURF, ship.sta.color, (250 + int((ship.x - ship.sta.length * math.cos(ship.theta) / 2) / 10), 250 + int((ship.y - ship.sta.length * math.sin(ship.theta) / 2) / 10)), (250 + int(ship.x / 10), 250 + int(ship.y / 10)), 5)
+    pygame.draw.line(DISPLAYSURF, ship.sta.color, (250 + int((ship.x - ship.sta.length * math.cos(ship.theta) / 2) / 10), 250 + int((ship.y - ship.sta.length * math.sin(ship.theta) / 2) / 10)), (250 + int((ship.x + ship.sta.length * math.cos(ship.theta) / 2) / 10), 250 + int((ship.y + ship.sta.length * math.sin(ship.theta) / 2) / 10)), 3)
 
 def cannonFire(shipS, shipE):
     if shipS.inpR.cannonFire == True:
