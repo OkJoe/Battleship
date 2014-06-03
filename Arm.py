@@ -47,22 +47,22 @@ class cannon(weapon):
         self.fixedtime = 50
 
     def init(self, number):
-        if number == 0:
+        if number == 4:
             self.rmin = - math.pi / 6
             self.rmax = 3 * math.pi / 4
-        elif number == 1 or number == 2:
+        elif number == 5 or number == 6:
             self.rmin = math.pi / 4
             self.rmax = 3 * math.pi / 4
-        elif number == 3:
+        elif number == 7:
             self.rmin = math.pi / 4
             self.rmax = 7 * math.pi / 6
-        elif number == 7:
+        elif number == 3:
             self.rmin = 5 * math.pi / 6
             self.rmax = 7 * math.pi / 4
-        elif number == 5 or number == 6:
+        elif number == 1 or number == 2:
             self.rmin = 5 * math.pi / 4
             self.rmax = 7 * math.pi / 4
-        elif number == 4:
+        elif number == 0:
             self.rmin = 5 * math.pi / 4
             self.rmax = math.pi / 6
        
@@ -70,8 +70,8 @@ class cannon(weapon):
         if self.addtime == 0:
             d = math.sqrt((min((shipS.x - shipE.x) % 10000, (shipE.x - shipS.x) % 10000)) ** 2 + (min((shipS.y - shipE.y) % 10000, (shipE.y - shipS.y) % 10000)) ** 2)
             if d < self.r:
-                x = shipS.x - shipE.x
-                y = shipS.y - shipE.y
+                x = shipE.x - shipS.x
+                y = shipE.y - shipS.y
                 if x < -5000:
                     x += 10000
                 elif x > 5000:
